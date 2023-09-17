@@ -78,4 +78,23 @@ extension CxxDictionary {
       }
     }
   }
+  
+  public func filter(_ isIncluded: (_ key: Key, _ value: Value) throws -> Bool) rethrows -> Self {
+    // Create a std::map/unordered_map of the same type
+    var filtered = Self.init()
+    var iterator = __beginUnsafe()
+    let endIterator = __endUnsafe()
+    
+    while iterator != endIterator {
+      let keyValuePair = iterator.pointee
+      
+      if try isIncluded(keyValuePair.first, keyValuePair.second) {
+        filtered.__insertUnsafe(keyValuePair)
+      }
+      
+      iterator = iterator.successor()
+    }
+    
+    return filtered
+  }
 }
