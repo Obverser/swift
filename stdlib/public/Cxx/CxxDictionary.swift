@@ -24,6 +24,9 @@ public protocol CxxDictionary<Key, Value> {
     where RawMutableIterator.Pointee == Element
   associatedtype Size: BinaryInteger
   associatedtype InsertionResult
+  
+  /// For instantiating same-type dictionaries in Swift.
+  init()
 
   /// Do not implement this function manually in Swift.
   func __findUnsafe(_ key: Key) -> RawIterator
@@ -38,6 +41,9 @@ public protocol CxxDictionary<Key, Value> {
   /// Do not implement this function manually in Swift.
   @discardableResult
   mutating func erase(_ key: Key) -> Size
+  
+  /// Do not implement this function manually in Swift.
+  func __beginUnsafe() -> RawIterator
 
   /// Do not implement this function manually in Swift.
   func __endUnsafe() -> RawIterator
