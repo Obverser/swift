@@ -106,4 +106,28 @@ StdMapTestSuite.test("UnorderedMap.erase") {
   expectNil(m[2])
 }
 
+StdMapTestSuite.test("Map.filter") {
+  var m = initMap()
+  
+  expectNotNil(m[1])
+  
+  m = m.filter { k, v in k != 1 }
+  
+  expectNil(m[1])
+  expectEqual(m[2], 2)
+  expectEqual(m[3], 3)
+}
+
+StdMapTestSuite.test("UnorderedMap.filter") {
+  var m = initUnorderedMap()
+  
+  expectNotNil(m[1])
+  
+  m = m.filter { k, v in k != 1 }
+  
+  expectNil(m[1])
+  expectEqual(m[2], 2)
+  expectEqual(m[3], 3)
+}
+
 runAllTests()
